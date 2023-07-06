@@ -1,0 +1,62 @@
+<div class="row">
+  <div
+    class="alert alert-danger d-flex justify-content-between"
+    role="alert"
+    *ngIf="httpError"
+  >
+    {{ httpErrorMessage || "Internal Server Error" }}
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="closeErrorHandler()"
+    ></button>
+  </div>
+
+  <div
+    class="alert alert-success d-flex justify-content-between"
+    role="alert"
+    *ngIf="addToCartNotify"
+  >
+    Product added successfully to the cart
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="closeNotifyHandler()"
+    ></button>
+  </div>
+
+  <div class="col-md-4" *ngFor="let product of products; let i = index">
+    <div class="card mb-4">
+      <img
+        style="object-fit: contain; height: 200px; width: 100%"
+        src="{{ product.imgUrl }}"
+        class="card-img-top m-1"
+        alt="{{ product.name }}"
+      />
+      <div class="card-body">
+        <p class="card-title bold">{{ product.name }}</p>
+        <p class="card-text">{{ product.description }}</p>
+        <p><strong>Price:</strong> ${{ product.price }}</p>
+        <div class="d-flex justify-content-center align-content-center">
+          <a
+            class="btn btn-primary margin-auto"
+            (click)="
+              addToCartHandler(
+                product.productId,
+                product.name,
+                product.price,
+                product.imgUrl,
+                product.deliveryDays,
+                product.productType,
+                product.daysInAdvance
+              )
+            "
+            >Add to Cart</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

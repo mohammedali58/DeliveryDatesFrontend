@@ -1,0 +1,84 @@
+<div
+  class="alert alert-dark"
+  role="alert"
+  *ngIf="!cartProducts || cartProducts.length == 0"
+>
+  Your Cart is Empty Please Select Your Products
+</div>
+<div class="row">
+  <div class="col-md-4" *ngFor="let product of cartProducts; let i = index">
+    <div class="card mb-4">
+      <img
+        style="object-fit: contain; height: 200px; width: 100%"
+        src="{{ product.imgUrl }}"
+        class="card-img-top m-1"
+        alt="{{ product.name }}"
+      />
+      <div class="card-body">
+        <p class="card-title bold">{{ product.name }}</p>
+        <p class="card-text">{{ product.description }}</p>
+        <p>
+          <strong>Price:</strong> ${{ product.price }} |
+          <strong>Quantity:</strong> {{ product.quantity }}
+        </p>
+        <div class="d-flex justify-content-center">
+          <a
+            class="btn btn-primary margin-auto"
+            (click)="removeFromCartHandler(+product.productId)"
+            >Remove Product</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="d-flex justify-content-center"
+  *ngIf="cartProducts && cartProducts.length > 0"
+>
+  <input
+    class="me-2"
+    type="text"
+    placeholder="postal code"
+    [(ngModel)]="postalCode"
+  />
+  <button class="btn btn-primary" (click)="getDeliveryDatesHandler()">
+    Get Delivery Dates
+  </button>
+</div>
+
+<table
+  class="table"
+  *ngIf="!deliveryDatesOutdated && deliveryDates.length != 0"
+>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">postal code</th>
+      <th scope="col">date</th>
+      <th scope="col">green delivery</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let date of deliveryDates; let i = index">
+      <th scope="row">{{ i }}</th>
+      <td>{{ date.postalCode }}</td>
+      <td>{{ date.formattedDate }}</td>
+      <td>{{ date.isGreenDelivery }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div
+  class="mt-4 mb-5 d-flex justify-content-center"
+  *ngIf="!deliveryDatesOutdated && deliveryDates.length == 0"
+>
+  <h4>No delivery dates are available!</h4>
+</div>
+
+<div
+  class="mt-4 mb-5 d-flex justify-content-center"
+  *ngIf="!postalCode && requestDays"
+>
+  <h4>Please enter a valid postal code</h4>
+</div>
