@@ -63,7 +63,7 @@
     <tr *ngFor="let date of deliveryDates; let i = index">
       <th scope="row">{{ i }}</th>
       <td>{{ date.postalCode }}</td>
-      <td>{{ date.formattedDate }}</td>
+      <td>{{ date.deliveryDate }}</td>
       <td>{{ date.isGreenDelivery }}</td>
     </tr>
   </tbody>

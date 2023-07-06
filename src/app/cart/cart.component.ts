@@ -14,7 +14,7 @@ export class CartComponent {
   postalCode = '';
   deliveryDates: {
     postalCode: string;
-    formattedDate: string;
+    deliveryDate: string;
     isGreenDelivery: boolean;
   }[] = [];
   getCartSubs!: Subscription;
